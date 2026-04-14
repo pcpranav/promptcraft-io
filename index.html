@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Describe your app idea. Get a user flow, page map, system design, and a production-ready TDD prompt in five structured phases.">
+  <title>App Architect â 5-phase design system</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,300&display=swap" rel="stylesheet">
+  <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #0d0d0b;
+    --paper: #f2f0eb;
+    --accent: #c8b89a;
+    --muted: rgba(242,240,235,0.7);
+    --dim: rgba(242,240,235,0.5);
+    --rule: rgba(255,255,255,0.12);
+    --mono: 'IBM Plex Mono', monospace;
+    --serif: 'Fraunces', serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--ink); color: var(--paper); font-family: var(--mono); font-size: 13px; -webkit-font-smoothing: antialiased; min-height: 100vh; display: flex; flex-direction: column; }
+  nav { padding: 18px 48px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--rule); animation: fadeDown 0.5s ease both; }
+  .nav-logo { font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; }
+  .nav-right { display: flex; align-items: center; gap: 24px; }
+  .nav-dim { font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+  .nav-dim:hover { color: var(--paper); }
+  .nav-cta { font-size: 13px; color: var(--paper); text-decoration: none; padding: 8px 16px; border: 1px solid var(--rule); transition: border-color 0.15s; }
+  .nav-cta:hover { border-color: var(--accent); }
+  .main { flex: 1; display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--rule); animation: fadeUp 0.6s ease 0.1s both; }
+  .hero { padding: 56px 48px; border-right: 1px solid var(--rule); display: flex; flex-direction: column; justify-content: center; gap: 0; }
+  .eyebrow { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 24px; display: flex; align-items: center; gap: 10px; }
+  .eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--accent); display: block; }
+  h1 { font-family: var(--serif); font-size: clamp(38px, 5vw, 64px); font-weight: 300; line-height: 1.06; letter-spacing: -0.02em; margin-bottom: 24px; }
+  h1 em { font-style: italic; color: var(--accent); }
+  .sub { font-size: 15px; line-height: 1.75; color: var(--muted); margin-bottom: 36px; }
+  .actions { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-bottom: 16px; }
+  .btn-main { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; padding: 16px 28px; background: var(--paper); color: var(--ink); text-decoration: none; transition: background 0.15s; display: inline-block; }
+  .btn-main:hover { background: var(--accent); }
+  .btn-text { font-size: 12px; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+  .btn-text:hover { color: var(--paper); }
+  .note { font-size: 12px; color: rgba(242,240,235,0.75); display: flex; align-items: center; gap: 8px; }
+  .note::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #4caf50; display: inline-block; }
+  .flow-wrap { padding: 48px 40px; display: flex; flex-direction: column; justify-content: center; gap: 0; }
+  .flow-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); margin-bottom: 28px; }
+  .flow { display: flex; flex-direction: column; gap: 0; }
+  .flow-node { display: grid; grid-template-columns: 36px 1fr; gap: 0 14px; align-items: start; position: relative; }
+  .flow-node-left { display: flex; flex-direction: column; align-items: center; }
+  .flow-num { width: 36px; height: 36px; border: 1px solid var(--rule); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: var(--accent); letter-spacing: 0.04em; flex-shrink: 0; background: rgba(200,184,154,0.06); transition: all 0.15s; }
+  .flow-node:hover .flow-num { background: rgba(200,184,154,0.15); border-color: var(--accent); }
+  .flow-line { width: 1px; flex: 1; min-height: 20px; background: var(--rule); margin: 0 auto; }
+  .flow-content { padding: 8px 0 24px; }
+  .flow-node:last-child .flow-content { padding-bottom: 0; }
+  .flow-title { font-size: 13px; font-weight: 500; letter-spacing: 0.02em; margin-bottom: 4px; line-height: 1; padding-top: 9px; }
+  .flow-desc { font-size: 11px; line-height: 1.6; color: rgba(242,240,235,0.55); }
+  .flow-output { margin-top: 28px; padding: 16px 20px; border: 1px solid rgba(200,184,154,0.3); background: rgba(200,184,154,0.05); display: flex; align-items: center; gap: 12px; }
+  .flow-output-icon { font-size: 18px; flex-shrink: 0; }
+  .flow-output-text { font-size: 12px; line-height: 1.5; color: var(--accent); }
+  .flow-output-text strong { display: block; font-weight: 500; font-size: 13px; margin-bottom: 2px; color: var(--paper); }
+  footer { padding: 14px 48px; display: flex; align-items: center; justify-content: space-between; animation: fadeUp 0.6s ease 0.25s both; }
+  .f-text { font-size: 12px; color: var(--dim); }
+  .f-text a { color: var(--muted); text-decoration: none; }
+  .f-text a:hover { color: var(--paper); }
+  @keyframes fadeDown { from { opacity:0; transform:translateY(-10px); } to { opacity:1; transform:none; } }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
+  @media (max-width: 900px) {
+    .main { grid-template-columns: 1fr; }
+    .hero { border-right: none; border-bottom: 1px solid var(--rule); padding: 40px 24px; }
+    .flow-wrap { padding: 36px 24px; }
+    nav { padding: 16px 24px; }
+    footer { padding: 14px 24px; flex-direction: column; gap: 6px; text-align: center; }
+  }
+  </style>
+</head>
+<body>
+  <nav>
+    <span class="nav-logo">App Architect</span>
+    <div class="nav-right">
+      <a class="nav-dim" href="https://claude.ai" target="_blank" rel="noopener">Powered by Claude</a>
+      <a class="nav-cta" href="https://claude.ai/public/artifacts/e4132901-d132-4104-b1b0-c6a5c62a19b5" target="_blank" rel="noopener">Launch â</a>
+    </div>
+  </nav>
+  <div class="main">
+    <div class="hero">
+      <div class="eyebrow">AI-powered design workflow</div>
+      <h1>Ship with a<br><em>plan.</em></h1>
+      <p class="sub">Describe your app idea. App Architect walks you through five structured phases â from user flow to a production-ready TDD prompt you can hand straight to a developer.</p>
+      <div class="actions">
+        <a class="btn-main" href="https://claude.ai/public/artifacts/e4132901-d132-4104-b1b0-c6a5c62a19b5" target="_blank" rel="noopener">Launch App Architect â</a>
+        <a class="btn-text" href="https://claude.ai/login" target="_blank" rel="noopener">Need an account? Sign up free</a>
+      </div>
+      <div class="note">Free to use Â· Runs on your Claude account Â· No sign-up needed to browse</div>
+    </div>
+    <div class="flow-wrap">
+      <div class="flow-label">How it works</div>
+      <div class="flow">
+        <div class="flow-node">
+          <div class="flow-node-left"><div class="flow-num">01</div><div class="flow-line"></div></div>
+          <div class="flow-content"><div class="flow-title">App Flow</div><div class="flow-desc">User journey map, tech stack, integrations &amp; edge cases</div></div>
+        </div>
+        <div class="flow-node">
+          <div class="flow-node-left"><div class="flow-num">02</div><div class="flow-line"></div></div>
+          <div class="flow-content"><div class="flow-title">Page Map</div><div class="flow-desc">Routes, wireframes, layout zones &amp; key interactions</div></div>
+        </div>
+        <div class="flow-node">
+          <div class="flow-node-left"><div class="flow-num">03</div><div class="flow-line"></div></div>
+          <div class="flow-content"><div class="flow-title">System Design</div><div class="flow-desc">DB schema, API routes &amp; architecture diagram</div></div>
+        </div>
+        <div class="flow-node">
+          <div class="flow-node-left"><div class="flow-num">04</div><div class="flow-line"></div></div>
+          <div class="flow-content"><div class="flow-title">Executive Summary</div><div class="flow-desc">Full spec â features, stack, risks &amp; open questions</div></div>
+        </div>
+        <div class="flow-node">
+          <div class="flow-node-left"><div class="flow-num">05</div></div>
+          <div class="flow-content"><div class="flow-title">TDD Prompt</div><div class="flow-desc">Production-ready prompt with unit, E2E &amp; CI config</div></div>
+        </div>
+      </div>
+      <div class="flow-output">
+        <div class="flow-output-icon">â</div>
+        <div class="flow-output-text"><strong>Hand it to a developer</strong>Copy the final prompt straight into Claude Code or any LLM</div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <span class="f-text">promptcraft-io.netlify.app</span>
+    <span class="f-text">Built with <a href="https://claude.ai" target="_blank" rel="noopener">Claude Artifacts</a> Â· Usage billed to your Claude account</span>
+  </footer>
+</body>
+</html>
