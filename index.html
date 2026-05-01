@@ -6,7 +6,9 @@
   <meta name="description" content="Describe your app idea. Get a user flow, page map, system design, and a production-ready TDD prompt in five structured phases.">
   <title>App Architect — 5-phase design system</title>
 
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230d0d0b'/%3E%3Ctext x='50%25' y='54%25' font-family='serif' font-size='40' font-style='italic' fill='%23c8b89a' text-anchor='middle' dominant-baseline='middle'%3EA%3C/text%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230d0d0b'/%3E%3Cpath d='M16 50 L32 14 L48 50 M22 38 L42 38' stroke='%23c8b89a' stroke-width='4' fill='none' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%230d0d0b'/%3E%3Cpath d='M45 140 L90 40 L135 140 M62 106 L118 106' stroke='%23c8b89a' stroke-width='10' fill='none' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E">
+  <meta name="theme-color" content="#0d0d0b">
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="App Architect — 5-phase design system">
@@ -94,7 +96,7 @@
     <span class="nav-logo">App Architect</span>
     <div class="nav-right">
       <a class="nav-dim" href="https://claude.ai" target="_blank" rel="noopener">Powered by Claude</a>
-      <a class="nav-cta" href="https://claude.ai/public/artifacts/e4132901-d132-4104-b1b0-c6a5c62a19b5" target="_blank" rel="noopener">Launch →</a>
+      <a class="nav-cta js-launch" target="_blank" rel="noopener">Launch →</a>
     </div>
   </nav>
   <div class="main">
@@ -103,7 +105,7 @@
       <h1>Ship with a<br><em>plan.</em></h1>
       <p class="sub">Describe your app idea. App Architect walks you through five structured phases — from user flow to a production-ready TDD prompt you can hand straight to a developer.</p>
       <div class="actions">
-        <a class="btn-main" href="https://claude.ai/public/artifacts/e4132901-d132-4104-b1b0-c6a5c62a19b5" target="_blank" rel="noopener">Launch App Architect →</a>
+        <a class="btn-main js-launch" target="_blank" rel="noopener">Launch App Architect →</a>
         <a class="btn-text" href="https://claude.ai/login" target="_blank" rel="noopener">Need an account? Sign up free</a>
       </div>
       <div class="note">Free to use · Runs on your Claude account · No sign-up needed to browse</div>
@@ -142,5 +144,11 @@
     <span class="f-text">promptcraft-io.vercel.app</span>
     <span class="f-text">Built with <a href="https://claude.ai" target="_blank" rel="noopener">Claude Artifacts</a> · Usage billed to your Claude account</span>
   </footer>
+  <script>
+    (function () {
+      var LAUNCH_URL = 'https://claude.ai/public/artifacts/e4132901-d132-4104-b1b0-c6a5c62a19b5';
+      document.querySelectorAll('a.js-launch').forEach(function (a) { a.href = LAUNCH_URL; });
+    })();
+  </script>
 </body>
 </html>
