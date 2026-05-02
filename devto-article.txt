@@ -1,0 +1,68 @@
+---
+title: I built a 5-phase design system that turns "I have an app idea" into a TDD prompt
+published: false
+description: App Architect walks you from a one-line idea to a production-ready prompt — user flow, page map, system design, spec, and tests. Here's why I built it and how it works.
+tags: ai, claude, productivity, webdev
+---
+
+## The problem with "build me an app" prompts
+
+Every developer has done this at least once: you have a vague idea, you open Claude or ChatGPT, you type *"build me a habit tracker with social features"*, and forty seconds later you're staring at 600 lines of code that compiles but doesn't actually solve the problem you had in your head.
+
+The model isn't wrong. Your prompt is.
+
+There's a missing layer between **"I have an idea"** and **"here is the code"** — the layer where a real engineering team would normally spend a week: user flows, page maps, schemas, edge cases, the boring stuff that decides whether the thing actually ships.
+
+I kept skipping that layer. So I built a tool that refuses to let me skip it.
+
+## What App Architect does
+
+App Architect is a Claude artifact that takes you through five structured phases. You describe your idea in one sentence; it asks the right follow-up questions; at the end you get a single prompt you can paste into Claude Code (or any capable LLM) to actually build the thing.
+
+The five phases:
+
+1. **App Flow** — user journey, tech stack, integrations, edge cases
+2. **Page Map** — routes, wireframes, layout zones, key interactions
+3. **System Design** — DB schema, API routes, architecture diagram
+4. **Executive Summary** — full spec: features, stack, risks, open questions
+5. **TDD Prompt** — a production-ready prompt with unit tests, E2E tests, and CI config baked in
+
+The output of phase 5 is the artifact. Everything before it exists to make that final prompt non-garbage.
+
+## Why TDD as the final output
+
+Because the failure mode of AI-generated code isn't "it doesn't compile." It's "it compiles, looks reasonable, and silently does the wrong thing in three places."
+
+If the final prompt asks the LLM to write tests **first**, then implementation, you get:
+
+- A clear, executable definition of "done"
+- A regression net the moment something else changes
+- A way to spot hallucinated APIs early (the test fails before you ship)
+
+You don't need to be a TDD purist to want that.
+
+## How to use it
+
+1. Open the [App Architect](https://promptcraft-io.vercel.app) landing page
+2. Click **Launch** — it opens as a Claude artifact in your own Claude account (free tier works fine)
+3. Describe your idea in one or two sentences
+4. Answer the phase prompts honestly — "I don't know yet" is a valid answer and the tool handles it
+5. Copy the final TDD prompt and paste it into Claude Code, Cursor, or any agentic dev tool
+
+There's no sign-up on my side. No data collection. Usage runs on your Claude account, billed to you. I don't see any of it.
+
+## What I'd do differently
+
+A few things I'd change if I rebuilt it tomorrow:
+
+- **Persist drafts.** Right now if you close the tab mid-flow you start over. Local storage would fix it cheaply.
+- **Branching flows.** Some apps don't have a "page map" (CLIs, MCP servers, libraries). The current flow nudges everything toward web apps. A branch at phase 1 would help.
+- **Stack templates.** A "Next.js + Postgres + Drizzle" preset would skip three rounds of follow-up questions for the 60% of users who already know their stack.
+
+I'll get there. For now, the v1 covers the painful part: stopping you from prompting before you've thought.
+
+## Try it
+
+→ **[promptcraft-io.vercel.app](https://promptcraft-io.vercel.app)**
+
+If you build something with it, I'd genuinely love to see what comes out the other side. Drop a comment.

@@ -1,0 +1,15 @@
+I kept skipping the planning phase.
+
+Vague idea → vague prompt → 600 lines that compile but solve the wrong problem.
+
+So I built a tool that refuses to let me skip it.
+
+→ App Architect: 5 phases that turn a one-line idea into a production-ready TDD prompt you can paste into Claude Code.
+
+User flow → Page map → System design → Spec → Tests.
+
+Free. Runs on your own Claude account. No sign-up.
+
+promptcraft-io.vercel.app
+
+#AI #Claude #BuildInPublic

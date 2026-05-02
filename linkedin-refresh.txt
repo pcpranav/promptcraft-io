@@ -1,0 +1,244 @@
+LINKEDIN PROFILE REFRESH — copy-paste guide
+============================================
+Mirrors your portfolio (pranavchandra-portfolio.vercel.app) and resume
+exactly. Work top-to-bottom.
+
+
+==========================================================================
+[1] HEADLINE  (max 220 chars — pick one)
+==========================================================================
+
+OPTION A (recommended — keyword-rich, recruiter-searchable):
+
+Senior Software Engineer (Backend) @ LiftOff LLC | Python · Node.js · FastAPI · GraphQL | AI/LLM Orchestration | AWS · GCP · Cloudflare | Streaming & Event-driven Systems
+
+OPTION B (shorter, more positioning-focused):
+
+Senior Software Engineer (Backend) @ LiftOff LLC · Building scalable AI/LLM systems with Python, Node.js & GraphQL
+
+
+==========================================================================
+[2] ABOUT  (paste into Edit Intro → About)
+==========================================================================
+
+Senior backend engineer turning AI ideas into production systems.
+
+5+ years at LiftOff LLC building scalable APIs, AI/LLM-powered products, and event-driven architectures across booking, payments, and social-intelligence platforms — the kind that handle millions of daily requests without paging anyone at 3am.
+
+What I work on:
+
+→ AI & LLM Systems
+Multi-model orchestration across OpenAI, Anthropic Claude, and Google Gemini. Prompt engineering, response optimisation, RAG, and cost-aware model routing for production workloads. SSE streaming for LLM responses in FastAPI.
+
+→ Backend & Real-time
+Python (FastAPI), Node.js (Express), TypeScript, GraphQL with Redis-backed subscriptions, REST APIs, BullMQ for background jobs, async producer/consumer pipelines in Python with async generators.
+
+→ Cloud & Workflows
+AWS, GCP, Cloudflare Workers + KV. Workflow orchestration with Prefect, Google Workflows, and Cloud Tasks. Docker + GitHub Actions for zero-downtime deploys.
+
+→ Integrations & Payments
+Stripe (subscriptions, webhooks, recurring billing), Zenoti, MyTime, Klaviyo, Brevo. Booking, membership, and lifecycle marketing wired end-to-end.
+
+Outside work I build developer tools and AI-powered side projects — most recent is App Architect (promptcraft-io.vercel.app), a 5-phase design workflow that turns app ideas into production-ready TDD prompts.
+
+Always happy to chat about backend, AI engineering, or building things that ship.
+DM me or pcpranavchandra@gmail.com.
+
+
+==========================================================================
+[3] EXPERIENCE  (Edit current LiftOff entry)
+==========================================================================
+
+JOB TITLE:
+Senior Software Engineer (Backend)
+
+EMPLOYMENT TYPE: Full-time
+COMPANY: LiftOff LLC
+LOCATION: Bengaluru, Karnataka, India
+LOCATION TYPE: Hybrid
+START: July 2021
+END: leave blank ("currently working in this role")
+
+DESCRIPTION (PLAIN TEXT — no markdown / no asterisks):
+
+Engineering scalable backend systems and APIs handling millions of daily requests across QuiltAI's social intelligence platform.
+
+What I work on:
+
+• Multi-model LLM orchestration across OpenAI, Google Gemini, and Anthropic Claude — prompt engineering, response optimisation, and cost-aware model routing for production workloads.
+
+• Data ingestion pipelines for Instagram, TikTok, and YouTube — processing high-volume social signal into structured, analytics-ready datasets.
+
+• Microservices on AWS and GCP with Docker and GitHub Actions for zero-downtime deployments.
+
+• Backend services for client web platforms — Bowie Barker, Squeeze, and Okay Humans — covering booking flows, membership management, and customer-facing experiences.
+
+• Stripe-based payments and subscription infrastructure (recurring billing, webhooks); integrated booking platforms (Zenoti, MyTime) and lifecycle email (Klaviyo, Brevo); orchestrated background jobs and crons with BullMQ.
+
+• Real-time and event-driven systems — SSE streams in FastAPI for LLM responses, Redis-backed GraphQL subscriptions, webhook-driven integrations, and async producer/consumer pipelines in Python with async generators. Workflow orchestration via Prefect, Google Workflows, and Cloud Tasks. Edge compute on Cloudflare Workers + KV.
+
+Tech: Python · Node.js · TypeScript · FastAPI · Express · GraphQL · PostgreSQL · MongoDB · Redis · Prisma · pgvector · AWS · GCP · Cloudflare Workers · Docker · GitHub Actions · BullMQ · Stripe · Anthropic Claude · OpenAI · Gemini
+
+
+==========================================================================
+[4] SKILLS  (Add each one — type, hit Enter, repeat. Up to 50.)
+==========================================================================
+
+Tip: when you start typing each skill, LinkedIn will suggest a matching
+canonical entry from its database — pick that suggestion (it's better
+for endorsements + recruiter search than free-form text).
+
+KEEP these you already have:
+• Python (Programming Language)
+• OpenAI API
+
+ADD these:
+
+# AI & LLMs
+Anthropic Claude
+Google Gemini
+Large Language Models (LLM)
+Prompt Engineering
+Retrieval-Augmented Generation (RAG)
+
+# Backend
+Node.js
+TypeScript
+FastAPI
+Express.js
+GraphQL
+REST APIs
+BullMQ
+Backend Development
+API Design
+Microservices
+
+# Databases
+PostgreSQL
+MongoDB
+Redis
+Prisma
+pgvector
+
+# Cloud & DevOps
+Amazon Web Services (AWS)
+Google Cloud Platform (GCP)
+Cloudflare Workers
+Vercel
+Docker
+GitHub Actions
+CI/CD
+
+# Streaming & Workflows
+Server-Sent Events (SSE)
+GraphQL Subscriptions
+Webhooks
+Prefect
+Google Cloud Workflows
+Google Cloud Tasks
+Event-Driven Architecture
+Real-time Systems
+
+# Integrations
+Stripe
+Zenoti
+Klaviyo
+
+# Architecture (recruiter keyword padding)
+System Design
+Software Architecture
+Distributed Systems
+Cloud-Native Architecture
+
+
+==========================================================================
+[5] PROJECTS  (Add each in the Projects section)
+==========================================================================
+
+PROJECT 1
+Name: QuiltAI — Sphere Platform
+URL: https://www.quilt.ai/sphere
+Description: Social intelligence platform for brands. Backend infrastructure powering AI-driven analytics, market segmentation, and multi-model LLM pipelines, processing millions of social signals daily. Tech: Python, GraphQL, PostgreSQL, Redis, AWS, OpenAI, Gemini, Claude.
+
+PROJECT 2
+Name: Squeeze — Massage Booking Platform
+URL: https://www.squeezemassage.com/
+Description: Web platform for a modern massage therapy franchise. Backend services for booking flows, membership management, location and therapist directories, and customer-facing service catalogues across multiple studio locations. Tech: Node.js, REST APIs, PostgreSQL, Stripe, Zenoti.
+
+PROJECT 3
+Name: Bowie Barker — Web Platform
+URL: https://www.bowiebarker.com
+Description: Full-stack web platform for a premium pet grooming franchise. Booking systems, membership management, and third-party API integrations. Tech: Node.js, TypeScript, REST APIs, PostgreSQL, GCP.
+
+PROJECT 4
+Name: Okay Humans — Therapy Platform
+URL: https://okayhuman.vercel.app/
+Description: Mental health platform connecting users with licensed therapists. Backend for therapist discovery via video bios, session booking, payments, and onboarding. Tech: Node.js, REST APIs, PostgreSQL, Stripe.
+
+PROJECT 5  ← featured
+Name: App Architect (Open Source)
+URL: https://promptcraft-io.vercel.app/
+Description: AI-powered design workflow that turns raw app ideas into production-ready specs through five structured phases — App Flow, Page Map, System Design, Executive Summary, and TDD Prompt — outputting user journeys, wireframes, DB schemas, API routes, and a developer-ready brief with tests and CI. Built on Claude Artifacts.
+
+UPDATE existing "Portfolio website" entry:
+Old URL: https://pranav-chandra-portfolio.netlify.app/   ← BROKEN, remove
+New URL: https://pranavchandra-portfolio.vercel.app/
+
+
+==========================================================================
+[6] EDUCATION  (Add new entry above the BE one)
+==========================================================================
+
+School: GUVI (Incubated at IIT Madras)
+Degree: Full Stack Development — Zen Class (IITM Pravartak Certified)
+Field of study: Web Development
+Start: 2020
+End: 2021
+Description: Career-pivot programme covering JavaScript & ES6, ReactJS with Redux, Node.js with Express, MongoDB, and MySQL — with live mentorship and hands-on projects. Foundation for transitioning from civil engineering into a professional web-dev role.
+
+
+==========================================================================
+[7] LICENSES & CERTIFICATIONS  (you have only 1 — add the Zen Class cert)
+==========================================================================
+
+If you have the IITM Pravartak Full Stack Development certificate, add it
+as a separate entry alongside the existing JavaScript / HCL GUVI one.
+Use the credential URL from your GUVI dashboard.
+
+
+==========================================================================
+[8] INTERESTS — orgs worth following (signals what you read)
+==========================================================================
+
+Companies:
+Anthropic · OpenAI · Google DeepMind · GitHub · Vercel · Stripe · MongoDB ·
+Redis · Cloudflare · Datadog · Sentry · Hugging Face · IIT Madras ·
+HCL GUVI · LiftOff LLC
+
+Newsletters / publications:
+DEV Community · Towards Data Science · The Pragmatic Engineer · Hacker News
+
+
+==========================================================================
+[9] BANNER — easy visual win
+==========================================================================
+
+LinkedIn banner spec: 1584 × 396 px (4:1 ratio). Default light-grey banner
+is replaced once you upload one.
+
+Quick paths:
+1. Use Canva → search "LinkedIn banner developer" → swap text to your
+   headline + tech stack, drop in a dark/cyan palette to match your
+   portfolio.
+2. Or: ask me to generate a brand-matched 1584×396 banner the same way
+   we made the OG image (HTML + headless Chrome screenshot).
+
+
+==========================================================================
+[10] AFTER YOU'VE PUBLISHED THE APP ARCHITECT POST
+==========================================================================
+
+Once the LinkedIn post is live, "Featured" the post on your profile:
+Profile → Add profile section → Featured → pick the App Architect post.
+This pins it to the top of your profile and gives every visitor an
+immediate look at your most recent ship.

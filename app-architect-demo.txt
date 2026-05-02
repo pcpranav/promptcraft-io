@@ -1,0 +1,316 @@
+APP ARCHITECT — DEMO NOTES
+============================
+A reference doc for presenting App Architect at work.
+Use as: talking points, Q&A prep, and a step-by-step demo flow.
+
+Live: https://promptcraft-io.vercel.app
+Article (long-form): https://dev.to/pcpranav  (and Medium import)
+GitHub: https://github.com/pcpranav/promptcraft-io
+
+
+==========================================================================
+1. THE PROBLEM (open with this)
+==========================================================================
+
+Most developers, when working with AI coding tools (Claude, Cursor,
+ChatGPT, GitHub Copilot, etc.), do this:
+
+  Vague idea  ->  vague prompt  ->  600 lines of code that compile
+                                    but don't solve the actual problem
+
+The model is not wrong. The prompt is.
+
+There is a missing layer between "I have an idea" and "here is the code"
+— the layer where a real engineering team normally spends a week:
+
+  - User flows
+  - Page maps
+  - DB schemas
+  - API routes
+  - Edge cases
+  - The boring stuff that decides whether the thing actually ships
+
+When you skip that layer, the LLM has no context. It guesses. Garbage
+in, garbage out.
+
+
+==========================================================================
+2. WHAT IS APP ARCHITECT
+==========================================================================
+
+A Claude Artifact that walks the user through 5 structured phases,
+turning a one-line idea into a production-ready prompt.
+
+The 5 phases:
+
+  01. App Flow
+      User journey, tech stack, integrations, edge cases.
+
+  02. Page Map
+      Routes, wireframes, layout zones, key interactions.
+
+  03. System Design
+      DB schema, API routes, architecture diagram.
+
+  04. Executive Summary
+      Full spec — features, stack, risks, open questions.
+
+  05. TDD Prompt
+      Production-ready prompt with unit tests, E2E tests, and CI
+      config baked in.
+
+You describe your idea in one sentence. App Architect asks the right
+follow-up questions. At the end you get a single prompt you can paste
+into Claude Code (or any agentic dev tool) to actually build the thing.
+
+Why TDD as the final output:
+  The failure mode of AI-generated code is not "it doesn't compile."
+  It's "it compiles, looks reasonable, and silently does the wrong
+  thing in three places." Tests-first catches that.
+
+
+==========================================================================
+3. WHAT IS CLAUDE ARTIFACTS (background for the audience)
+==========================================================================
+
+Claude Artifacts is a feature inside claude.ai — Anthropic's chat
+product. It lets Claude generate "artifacts" (small, self-contained
+apps, documents, or visualisations) that render in a side panel next
+to the chat.
+
+Key properties:
+
+  - Runs entirely inside the user's claude.ai session
+  - No deployment, no hosting, no backend infrastructure
+  - The artifact is itself an app — interactive, stateful (within a
+    conversation), and can call Claude inline as needed
+  - Shareable via a URL that other Claude users can open
+  - Cost-of-use is paid by the viewer (their Claude tokens), not the
+    author
+
+Why this matters for App Architect:
+
+  - Zero infrastructure cost for me — no servers, no auth, no DB
+  - Zero cost-of-use for me — viewers pay their own Claude usage
+  - Anyone with a free Claude account can use the tool
+  - The "AI" part of the tool IS the platform; no extra API keys to
+    manage
+
+In other words: Claude Artifacts let me ship an AI product without
+running any backend. The user's Claude account is the backend.
+
+
+==========================================================================
+4. HOW IT WORKS (architecture, for the engineers in the room)
+==========================================================================
+
+   +--------------------+
+   |  promptcraft-      |
+   |  io.vercel.app     |  <-- Static landing page (HTML/CSS, no JS framework)
+   |  (Vercel)          |       Hosted on Vercel free tier, ~0 cost.
+   +--------+-----------+
+            |
+            |  "Launch App Architect" button -> redirect
+            v
+   +--------------------+
+   |  claude.ai/public/ |  <-- Claude Artifact (the tool itself)
+   |  artifacts/<id>    |       Runs in the visitor's own Claude session.
+   +--------------------+
+            |
+            |  Each phase is a structured Claude prompt with templated
+            |  follow-up questions. The artifact orchestrates phase
+            |  transitions and passes context forward.
+            v
+   +--------------------+
+   |  TDD prompt output |  <-- Final artifact: a copy-paste-ready prompt
+   +--------------------+
+            |
+            v
+   Paste into Claude Code, Cursor, or any agentic dev environment
+   to actually generate the app.
+
+What App Architect itself is, technically:
+  - JavaScript/HTML/CSS Claude Artifact
+  - Template prompts orchestrating Claude under the hood
+  - Phase state managed in-artifact memory (per-conversation)
+  - No external API calls, no database, no auth
+
+What it is NOT:
+  - It is NOT a code generator. It generates a *prompt* that another
+    LLM uses to generate code.
+  - It is NOT a replacement for a developer. It is a planning layer
+    that makes the developer's prompt much better.
+
+
+==========================================================================
+5. WHY THIS MATTERS (the thesis)
+==========================================================================
+
+Most AI coding tools optimise the moment of code generation.
+App Architect optimises the moment *before* code generation.
+
+If you put garbage into Claude Code, you get garbage out — even with
+the best agentic tooling. The prompt is the bottleneck.
+
+App Architect closes the gap between:
+
+  How a real product spec is shaped
+       (PM-driven, multi-phase, considers users + edge cases + tests)
+
+  And
+
+  How most people prompt LLMs
+       ("build me X")
+
+The result: stronger prompts, better-aligned code, fewer rounds of
+"actually I meant..." rework.
+
+
+==========================================================================
+6. DEMO FLOW (step-by-step, ~5-7 minutes)
+==========================================================================
+
+Setup before the demo:
+  - Have https://promptcraft-io.vercel.app open in one tab
+  - Be logged into claude.ai in the same browser session
+  - Pick one app idea in advance (a simple, relatable one)
+    Suggestions:
+      a) "A team standup tracker that summarises blockers to Slack"
+      b) "An expense tracker for freelancers with auto-categorisation"
+      c) "A booking system for an internal company meeting room"
+
+Demo steps:
+
+  STEP 1  (~30 sec)  — Land on the marketing page.
+    Show the dark "Ship with a plan." landing page.
+    Read the eyebrow: "AI-powered design workflow."
+    Point at the 5-phase list on the right.
+
+  STEP 2  (~10 sec)  — Click "Launch App Architect."
+    Redirects into claude.ai with the artifact loaded.
+    Note: viewers will need their own free Claude account; if so,
+    show the "Sign up free" link on the landing page.
+
+  STEP 3  (~30 sec)  — Type the one-line app idea.
+    Watch the artifact ask the first batch of follow-up questions
+    (auth model? tech stack? scale? user types?).
+
+  STEP 4  (~1-2 min) — Phase 1: App Flow.
+    Walk through filling in the answers. Show how App Architect
+    converts them into a structured user journey + tech stack +
+    edge-case list.
+
+  STEP 5  (~1 min)  — Skip ahead through Phase 2-4.
+    For demo brevity, you don't need to fully complete every phase.
+    Show a previously-completed example or scroll through the
+    in-progress output.
+
+  STEP 6  (~1 min)  — Phase 5: TDD Prompt.
+    Show the final generated prompt. Highlight that it includes:
+      - A description of features
+      - DB schema / API routes
+      - Unit and E2E test scaffolding requirements
+      - CI config requirements
+    Copy the prompt.
+
+  STEP 7  (~1 min)  — (Optional, strong close)
+    Open Claude Code (or any LLM playground), paste the prompt,
+    show it generating actual production-quality code with tests
+    in real time.
+
+Total: 5-7 minutes if lean, 10 minutes with the live code-gen close.
+
+
+==========================================================================
+7. TECH STACK (one-liner per layer)
+==========================================================================
+
+  Marketing page :  HTML, CSS, vanilla JS, hosted on Vercel
+  Tool itself    :  Claude Artifact (JS/HTML/CSS, runs inside claude.ai)
+  Inference      :  Claude (paid by the visitor, not the author)
+  Source         :  GitHub  -  github.com/pcpranav/promptcraft-io
+  Distribution   :  Single shareable claude.ai URL
+
+
+==========================================================================
+8. Q&A PREP — likely questions
+==========================================================================
+
+Q: How is this different from prompts I find on prompt-libraries?
+A: Static prompts assume you already know what you want. App Architect
+   walks you through *figuring out* what you want — phase by phase,
+   with follow-ups specific to your domain.
+
+Q: What's the cost?
+A: Zero for me as the author. The viewer pays their own Claude usage,
+   which on a free tier is effectively free for casual use.
+
+Q: Could this be built outside Claude Artifacts (e.g. as a real web
+   app)?
+A: Yes — but I'd then own auth, billing, model API keys, infra, and
+   compliance. Artifacts shipping the entire AI workflow inside the
+   user's Claude session removed every single one of those concerns,
+   which is why a one-person side project could ship in a weekend.
+
+Q: What if Claude Artifacts changes or goes away?
+A: The 5-phase methodology is portable. The current artifact is just
+   one implementation. The underlying prompt templates would work in
+   any LLM environment.
+
+Q: Why TDD as the final output, specifically?
+A: Tests are an executable definition of "done" — they let you spot
+   hallucinated APIs and silent bugs early. AI-generated code without
+   tests is faith-based; AI-generated code with passing tests is
+   verifiable.
+
+Q: Could this be used at <our company> for internal projects?
+A: Yes — and there are two paths:
+   1. As-is, for internal POCs and side-tooling.
+   2. As a custom internal version with our specific stack templates
+      (e.g. company-standard auth, company-standard DB), so the
+      output prompt is pre-aligned with our infra.
+
+Q: Who is the target user?
+A: Three groups:
+   - Solo developers / indie hackers turning ideas into POCs faster
+   - Tech-leaning PMs who want to spec out a feature before handing
+     it to engineering
+   - Senior engineers using it to draft an RFC / design doc quickly
+
+
+==========================================================================
+9. POTENTIAL EXTENSIONS (if the room asks "what's next")
+==========================================================================
+
+  - Branching flows for non-web-app projects (CLIs, MCP servers,
+    libraries, mobile apps).
+  - Stack templates ("Next.js + Postgres + Drizzle", "FastAPI +
+    Postgres + Celery") to skip 3 rounds of follow-up questions for
+    users who already know their stack.
+  - Persistent drafts (currently a closed tab restarts the flow).
+  - Diagram export — auto-generate Mermaid / PlantUML for the
+    architecture phase.
+  - Internal version pre-loaded with company-specific patterns.
+
+
+==========================================================================
+10. ONE-LINE PITCHES (in case you're cut off)
+==========================================================================
+
+  Engineering audience:
+  "App Architect is a 5-phase planning layer that turns a one-line
+  idea into a production-ready TDD prompt. It runs as a Claude
+  Artifact, so there's no backend and the user's Claude account is
+  the inference engine."
+
+  Product/leadership audience:
+  "App Architect is a free tool that helps anyone — devs, PMs, even
+  founders — turn a vague idea into a complete, developer-ready spec
+  in about 15 minutes. The output is a prompt you can hand to any AI
+  coding tool to actually build the thing."
+
+  Recruiter audience:
+  "App Architect is a side project that demonstrates AI-product
+  thinking, prompt engineering at scale, and ability to ship a usable
+  tool with zero infrastructure cost by leaning on the right primitive
+  (Claude Artifacts)."
