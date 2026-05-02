@@ -1,0 +1,121 @@
+---
+title: I tested 4 free 70B-class LLM endpoints for real production work — here's what each is actually good at
+published: false
+description: Cerebras Qwen, Groq Llama 4, OpenRouter Ling, and Cloudflare GPT-OSS. Notes from building an AI website builder that runs entirely on free open-source inference.
+tags: ai, llm, opensource, webdev
+cover_image: https://promptcraft-io.vercel.app/sitecraft-cover.png
+---
+
+> Cover image suggestion: upload `sitecraft-cover.png` (1000×420, brand-matched) to your dev.to article — same one used as the LinkedIn Featured thumbnail.
+
+## The question
+
+Most "production-grade" AI tools ship on paid endpoints — OpenAI, Anthropic, Gemini Pro. That's the safe choice. It's also the expensive one.
+
+I wanted to know: in mid-2026, can free 70B-class open-source endpoints actually carry a real product workload? Not a toy chatbot — a tool that generates working HTML/CSS/JS for arbitrary user prompts.
+
+So I built one. The result is **Sitecraft** ([wiz-craft.vercel.app](https://wiz-craft.vercel.app/)) — a free, open-source AI website builder. It runs across **four different free endpoints** and lets users switch between them mid-conversation.
+
+This post is what I learned about each one. Not a benchmark — a working engineer's notes.
+
+## The 4 endpoints I shipped
+
+| Provider     | Model              | Why it's on the list                                      |
+| ------------ | ------------------ | --------------------------------------------------------- |
+| Cerebras     | Qwen 3 235B        | Reasoning depth — strongest at "think before generating"  |
+| Groq         | Llama 4 Scout      | Throughput king — fastest token rate I've measured        |
+| OpenRouter   | Ling-2.6 Flash     | Generalist; best fallback when the others rate-limit     |
+| Cloudflare   | GPT-OSS 120B       | Edge inference; lowest latency from a Workers backend     |
+
+All four have free tiers that are actually usable for shipping (not just "free for 100 tokens then $50/M"). Different free-tier shapes, but real free.
+
+## What each one is actually good at
+
+### Cerebras · Qwen 3 235B — the reasoner
+
+When the prompt requires *planning* (e.g. "build a 3-page site with consistent design language across all pages, plus a working contact form"), Qwen on Cerebras consistently produces the most coherent output. It thinks about the whole problem before emitting code.
+
+Trade-off: it's slower per token than Groq, and the free tier rate-limits aggressively when you go beyond a few requests per minute.
+
+**Use it when:** The prompt is open-ended and the model needs to invent structure.
+
+### Groq · Llama 4 Scout — the speed demon
+
+Groq's LPUs are the fastest inference I've ever benchmarked. Llama 4 Scout hits ~500+ tokens/second sustained, which means a full single-page site (~3000-5000 tokens) lands in under 10 seconds — feels instant in the UI.
+
+Trade-off: Llama 4 Scout is smaller and less "thoughtful" than Qwen 3 235B. For complex prompts it sometimes generates plausible but incorrect code (wrong CSS selectors, hallucinated APIs).
+
+**Use it when:** Iteration speed matters more than first-shot correctness.
+
+### OpenRouter · Ling-2.6 Flash — the generalist fallback
+
+OpenRouter's free Ling-2.6 Flash isn't the best at any single thing, but it's *consistently okay* across prompt types and almost never rate-limits. That makes it the perfect fallback target when one of the other three is throttled.
+
+Trade-off: code output quality is noticeably lower than Qwen — more boilerplate, less elegant HTML structure.
+
+**Use it when:** You need a fallback that won't fail. Paired with quality-checks downstream, it's the safety net.
+
+### Cloudflare · GPT-OSS 120B — the edge play
+
+If your backend already runs on Cloudflare Workers, calling Cloudflare AI from the same edge node is hands-down the lowest-latency setup. No cross-region hop, no cold-start penalty.
+
+Trade-off: GPT-OSS 120B is older architecture than the others. Output quality sits between Llama 4 Scout and Ling — fine for short outputs, weaker for long-form generation.
+
+**Use it when:** Your stack is already on Cloudflare and you want to keep the inference call inside the edge.
+
+## The orchestration strategy
+
+You don't pick one. You orchestrate.
+
+For Sitecraft I shipped a simple router:
+
+1. **Default:** Groq Llama 4 (fastest perceived response)
+2. **If user explicitly toggles "high-quality":** Cerebras Qwen 3 235B
+3. **If primary is rate-limited (429):** fall back to OpenRouter Ling
+4. **Cloudflare GPT-OSS:** offered as a manual switch for users on slow connections (edge-routed)
+
+The user can also switch mid-conversation — useful when, say, Qwen produced a great structural draft but you want Groq to iterate fast on the styling.
+
+The whole router is ~80 lines of plain JS. No LangChain, no framework. Just an `if/else` over which endpoint to hit, plus a small wrapper that normalises response formats (each provider returns slightly different envelope JSON).
+
+## The honest trade-offs
+
+If you're considering this approach, here's what I wish someone had told me upfront:
+
+- **Response format quirks.** Every provider returns slightly different JSON. Cerebras gives `choices[0].message.content`, Cloudflare gives `result.response`, OpenRouter mostly mirrors OpenAI but with quirks on streaming. **Build a normaliser early** or you'll regret it.
+
+- **Free tiers are real but bounded.** "Free" usually means rate-limited per minute and per day. For a side project with low traffic, you'll never notice. For a viral hit, you'll need a paid tier or a queue.
+
+- **Quality variance is real.** Even within the same prompt, Qwen and Llama 4 will produce noticeably different code. If your UX expects consistency, normalise via post-processing or pick one provider per request type.
+
+- **No streaming compatibility guarantees.** SSE format varies subtly. If you stream tokens to a UI, expect to write provider-specific stream parsers.
+
+- **Latency varies wildly by region.** Groq is fast from US-East. From APAC, the round-trip dominates. Cloudflare's edge play wins here.
+
+## When this approach is right (and when it isn't)
+
+**Use free open-source endpoints if:**
+- You're shipping a side project / proof-of-concept and don't want a credit-card dependency
+- Your users are okay with "good enough" code (and you can iterate)
+- You want flexibility to swap models without lock-in
+- You're learning about LLM orchestration and want hands-on experience with the trade-offs
+
+**Stick with paid (Claude / GPT-5 / Gemini Pro) if:**
+- You need single-shot correctness (no iteration loop)
+- You're building agentic workflows with deep reasoning (multi-tool, long context)
+- You have a real budget and uptime SLA matters
+- Your prompts genuinely need 200K+ context
+
+For Sitecraft, the 4-endpoint orchestration was the right call — generating a website is iterative anyway, the user is in the loop, and "free forever" is part of the product pitch.
+
+For my other side project, [App Architect](https://promptcraft-io.vercel.app/) (a 5-phase design workflow that turns app ideas into TDD prompts), I went the opposite direction and built it on Claude Artifacts — because *that* tool needs deep reasoning over a long structured conversation, and the paid frontier model is worth it.
+
+Right tool for the right job.
+
+## Try it
+
+→ **[wiz-craft.vercel.app](https://wiz-craft.vercel.app/)** — switch between the 4 endpoints mid-conversation and feel the difference for yourself.
+
+Source: **[github.com/pcpranav/sitecraft](https://github.com/pcpranav/sitecraft)**
+
+If you've shipped on free open-source endpoints, I'd love to hear which providers you settled on and why. Drop a comment.
