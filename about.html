@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="About the engineer behind App Architect, Sitecraft, and other small AI tools. Report bugs or share feedback.">
+  <title>About — Pranav Chandra</title>
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230d0d0b'/%3E%3Cpath d='M16 50 L32 14 L48 50 M22 38 L42 38' stroke='%23c8b89a' stroke-width='4' fill='none' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%230d0d0b'/%3E%3Cpath d='M45 140 L90 40 L135 140 M62 106 L118 106' stroke='%23c8b89a' stroke-width='10' fill='none' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E">
+  <meta name="theme-color" content="#0d0d0b">
+
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="About — Pranav Chandra">
+  <meta property="og:description" content="About the engineer behind App Architect, Sitecraft, and other small AI tools.">
+  <meta property="og:url" content="https://promptcraft-io.vercel.app/about.html">
+  <meta property="og:site_name" content="App Architect">
+
+  <link rel="canonical" href="https://promptcraft-io.vercel.app/about.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&display=swap" rel="stylesheet">
+
+  <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #0d0d0b;
+    --paper: #f2f0eb;
+    --accent: #c8b89a;
+    --muted: rgba(242,240,235,0.7);
+    --dim: rgba(242,240,235,0.5);
+    --rule: rgba(255,255,255,0.12);
+    --mono: 'IBM Plex Mono', monospace;
+    --serif: 'Fraunces', serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--ink); color: var(--paper); font-family: var(--mono); font-size: 13px; -webkit-font-smoothing: antialiased; min-height: 100vh; display: flex; flex-direction: column; }
+  a { color: inherit; }
+  nav { padding: 18px 48px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--rule); }
+  .nav-logo { font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; color: var(--paper); }
+  .nav-right { display: flex; align-items: center; gap: 24px; }
+  .nav-dim { font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+  .nav-dim:hover { color: var(--paper); }
+  .nav-cta { font-size: 13px; color: var(--paper); text-decoration: none; padding: 8px 16px; border: 1px solid var(--rule); transition: border-color 0.15s; }
+  .nav-cta:hover { border-color: var(--accent); }
+
+  main { flex: 1; max-width: 760px; width: 100%; margin: 0 auto; padding: 72px 48px 96px; }
+  .eyebrow { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 24px; display: flex; align-items: center; gap: 10px; }
+  .eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--accent); display: block; }
+  h1 { font-family: var(--serif); font-size: clamp(36px, 5vw, 56px); font-weight: 300; line-height: 1.06; letter-spacing: -0.02em; margin-bottom: 28px; }
+  h1 em { font-style: italic; color: var(--accent); }
+  .lead { font-size: 15px; line-height: 1.75; color: var(--muted); margin-bottom: 32px; max-width: 640px; }
+  .lead strong { color: var(--paper); font-weight: 400; }
+
+  .what-i-work-on { margin: 40px 0 56px; padding: 28px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px 36px; }
+  .work-item { }
+  .work-item-title { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .work-item-desc { font-size: 13px; line-height: 1.65; color: var(--muted); }
+
+  .actions { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-bottom: 16px; }
+  .btn-main { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; padding: 16px 28px; background: var(--paper); color: var(--ink); text-decoration: none; transition: background 0.15s; display: inline-flex; align-items: center; gap: 10px; border: none; cursor: pointer; }
+  .btn-main:hover { background: var(--accent); }
+  .btn-main:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-line { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; padding: 16px 28px; background: transparent; color: var(--paper); border: 1px solid var(--rule); text-decoration: none; transition: border-color 0.15s; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; }
+  .btn-line:hover { border-color: var(--accent); }
+  .btn-line:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-text { font-size: 12px; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+  .btn-text:hover { color: var(--paper); }
+
+  .section { margin-top: 72px; padding-top: 56px; border-top: 1px solid var(--rule); }
+  .section h2 { font-family: var(--serif); font-size: clamp(24px, 3vw, 32px); font-weight: 300; line-height: 1.15; letter-spacing: -0.015em; margin-bottom: 16px; }
+  .section h2 em { font-style: italic; color: var(--accent); }
+  .section p { font-size: 14px; line-height: 1.7; color: var(--muted); margin-bottom: 24px; max-width: 600px; }
+
+  textarea.feedback { width: 100%; min-height: 160px; padding: 16px; background: rgba(255,255,255,0.03); border: 1px solid var(--rule); color: var(--paper); font-family: var(--mono); font-size: 13px; line-height: 1.6; resize: vertical; outline: none; transition: border-color 0.15s; }
+  textarea.feedback:focus-visible { border-color: var(--accent); }
+  textarea.feedback::placeholder { color: var(--dim); }
+  .feedback-actions { display: flex; align-items: center; gap: 16px; margin-top: 18px; flex-wrap: wrap; }
+  .feedback-hint { font-size: 11px; color: var(--dim); }
+
+  footer { padding: 24px 48px; border-top: 1px solid var(--rule); display: flex; align-items: center; justify-content: space-between; }
+  .f-text { font-size: 11px; color: var(--dim); }
+  .f-text a { color: var(--muted); text-decoration: none; transition: color 0.15s; }
+  .f-text a:hover { color: var(--paper); }
+
+  @media (max-width: 768px) {
+    nav, main, footer { padding-left: 24px; padding-right: 24px; }
+    main { padding-top: 48px; padding-bottom: 64px; }
+    .what-i-work-on { grid-template-columns: 1fr; gap: 24px; }
+    .nav-right { gap: 16px; }
+    .nav-dim { font-size: 12px; }
+  }
+  </style>
+</head>
+<body>
+  <nav>
+    <a class="nav-logo" href="/">App Architect</a>
+    <div class="nav-right">
+      <a class="nav-dim" href="https://github.com/pcpranav" target="_blank" rel="noopener">GitHub</a>
+      <a class="nav-cta" href="/">Home →</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="eyebrow">About</div>
+    <h1>An engineer who ships <em>small AI tools.</em></h1>
+    <p class="lead">
+      Senior Software Engineer (Backend). Building scalable APIs, AI/LLM-powered
+      products, and event-driven systems. Writing about backend, AI orchestration,
+      and shipping side projects.
+    </p>
+
+    <div class="what-i-work-on">
+      <div class="work-item">
+        <div class="work-item-title">AI &amp; LLM</div>
+        <div class="work-item-desc">Multi-model orchestration, prompt engineering, response streaming, cost-aware routing across providers.</div>
+      </div>
+      <div class="work-item">
+        <div class="work-item-title">Backend &amp; Real-time</div>
+        <div class="work-item-desc">Python (FastAPI), Node.js, TypeScript, GraphQL with Redis subscriptions, async producer/consumer pipelines.</div>
+      </div>
+      <div class="work-item">
+        <div class="work-item-title">Cloud &amp; Workflows</div>
+        <div class="work-item-desc">AWS, GCP, Cloudflare Workers + KV. Workflow orchestration with Prefect, Google Workflows, Cloud Tasks.</div>
+      </div>
+      <div class="work-item">
+        <div class="work-item-title">Integrations &amp; Payments</div>
+        <div class="work-item-desc">Stripe (subscriptions, webhooks), Zenoti, MyTime, Klaviyo, Brevo. Lifecycle marketing wired end-to-end.</div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <a class="btn-main" href="https://github.com/pcpranav/promptcraft-io" target="_blank" rel="noopener">View on GitHub →</a>
+      <a class="btn-text" href="https://github.com/pcpranav/promptcraft-io/issues" target="_blank" rel="noopener">Browse issues</a>
+    </div>
+
+    <section class="section" id="feedback">
+      <h2>Report a bug or <em>share feedback.</em></h2>
+      <p>This site is open source. Tell me what's broken, what's missing, or what you'd want next — pick whichever channel is easier.</p>
+      <textarea class="feedback" id="feedback" placeholder="What's on your mind? Describe the bug or the idea…" rows="6"></textarea>
+      <div class="feedback-actions">
+        <button class="btn-main" id="btn-issue" disabled>Open as GitHub issue</button>
+        <button class="btn-line" id="btn-email" disabled>Or send by email</button>
+        <span class="feedback-hint">GitHub issue opens in a new tab; email opens your mail client.</span>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span class="f-text"><a href="/">promptcraft-io.vercel.app</a></span>
+    <span class="f-text">Built with <a href="https://claude.ai" target="_blank" rel="noopener">Claude</a></span>
+  </footer>
+
+  <script>
+    (function () {
+      // Gmail "+" alias — easy to filter if scraped.
+      var FEEDBACK_EMAIL = 'pcpranavchandra+promptcraft@gmail.com';
+      var REPO = 'https://github.com/pcpranav/promptcraft-io';
+      var textarea = document.getElementById('feedback');
+      var btnIssue = document.getElementById('btn-issue');
+      var btnEmail = document.getElementById('btn-email');
+
+      function refresh() {
+        var has = textarea.value.trim().length > 0;
+        btnIssue.disabled = !has;
+        btnEmail.disabled = !has;
+      }
+      textarea.addEventListener('input', refresh);
+
+      btnIssue.addEventListener('click', function () {
+        var body = textarea.value.trim();
+        if (!body) return;
+        var url = REPO + '/issues/new?title=' + encodeURIComponent('Feedback') +
+                  '&body=' + encodeURIComponent(body);
+        window.open(url, '_blank', 'noopener,noreferrer');
+      });
+
+      btnEmail.addEventListener('click', function () {
+        var body = textarea.value.trim();
+        if (!body) return;
+        var url = 'mailto:' + FEEDBACK_EMAIL +
+                  '?subject=' + encodeURIComponent('Feedback') +
+                  '&body=' + encodeURIComponent(body);
+        window.location.href = url;
+      });
+    })();
+  </script>
+</body>
+</html>
